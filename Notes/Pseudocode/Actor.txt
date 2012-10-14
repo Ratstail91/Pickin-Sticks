@@ -1,0 +1,76 @@
+To redesign the actor class
+
+this class not only implements all five systems, but also swaps around them
+
+Actor:
+	-Image		spr
+	-Animator	ani
+	-BBox		box
+	-Vector2	pos
+	-Vector2	mot
+	
+	Constructor
+	...?
+	Destructor
+	
+	//this updates the various elements of the actor
+	//this should be called ONCE per loop
+	//delta is for synced motion between different actors
+	Update			(delta)
+	
+	//sprite manipulation
+	//also handles the bounding box, and resets the animator?
+	LoadSprite		(fname, width = 0, height = 0)
+	SetSprite		(Image*) //direct copy: not local, set clip, compensate BBox
+	SetSprite		(Surface*, width = 0, height = 0)
+	UnloadSprite	()
+	
+	//handles the width & height of the actor, and adjusts the bounding box
+	SetWidth		(w)
+	SetHeight		(h)
+	GetWidth		()
+	GetHeight		()
+	
+	//assume this system:
+	//    animation along the X of the spritesheet
+	//    different sprites (up,down,left,right) along the Y of the spritesheet
+	SetSpriteIndex	(s) //can use macros
+	SetSpriteSpeed	()
+	
+	//draw to the screen, and compensate for any camera input
+	DrawTo			(dest, camX, camY)
+	
+	//this handles minor tweaks to the edges of the bounding box
+	GetRealBBox		(x, y, w, h) //these are signed, and passed into the box's tweak function
+	
+	//the positon is handled by a 2D vector
+	SetPosition		(x, y)
+	SetPosition		(Vector2)
+	SetX			()
+	SetY			()
+	ShiftX			()
+	ShiftY			()
+	GetPosition		() //vec2
+	GetX			()
+	GetY			()
+	
+	//the motion is handled by a 2D vector
+	SetMotion		(x, y)
+	SetMotion		(Vector2)
+	SetMotionX		()
+	SetMotionY		()
+	ShiftMotionX	()
+	ShiftMotionY	()
+	GetMotion		() //vec2
+	GetMotionX		()
+	GetMotionY		()
+	
+	//OO breaker (deprecated) get pointers to the members
+\	GetSpr			()
+\	GetAni			()
+\	GetBox			()
+\	GetPos			()
+\	GetMot			()
+	
+end
+
