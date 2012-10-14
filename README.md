@@ -2,7 +2,7 @@ This is a rough [Pickin' Sticks](http://www.moosader.com/community/pickin-sticks
 
 ### Dependencies
 
-SDL  
+[SDL](http://www.libsdl.org/)  
 [Codebase](https://github.com/Ratstail91/Codebase)  
 
 ### License
