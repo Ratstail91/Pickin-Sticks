@@ -1,5 +1,10 @@
 This is a rough [Pickin' Sticks](http://www.moosader.com/community/pickin-sticks) clone. It's only supposed to test out a few of my modules, but I'm making it anyway since I didn't make my previous one public.
 
+### Dependencies
+
+SDL  
+[Codebase](https://github.com/Ratstail91/Codebase)  
+
 ### License
 
 The Pickin' Sticks IP is released under the MIT license (see [the site](http://www.moosader.com/community/pickin-sticks)), while my code is released under the zlib license.
