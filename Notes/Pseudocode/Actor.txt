@@ -20,6 +20,7 @@ Actor:
 	
 	//sprite manipulation
 	//also handles the bounding box, and resets the animator?
+	//returns 0 on success, 1 on error
 	LoadSprite		(fname, width = 0, height = 0)
 	SetSprite		(Image*) //direct copy: not local, set clip, compensate BBox
 	SetSprite		(Surface*, width = 0, height = 0)
@@ -34,8 +35,10 @@ Actor:
 	//assume this system:
 	//    animation along the X of the spritesheet
 	//    different sprites (up,down,left,right) along the Y of the spritesheet
-	SetSpriteIndex	(s) //can use macros
-	SetSpriteSpeed	()
+	SetSpriteIndex	(i) //can use macros
+	SetSpriteSpeed	(s)
+	GetSpriteIndex	()
+	GetSpriteSpeed	()
 	
 	//draw to the screen, and compensate for any camera input
 	DrawTo			(dest, camX, camY)
@@ -48,6 +51,8 @@ Actor:
 	SetPosition		(Vector2)
 	SetX			()
 	SetY			()
+	ShiftPosition	(x, y)
+	ShiftPosition	(Vector2)
 	ShiftX			()
 	ShiftY			()
 	GetPosition		() //vec2
