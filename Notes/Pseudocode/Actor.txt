@@ -46,6 +46,8 @@ Actor:
 	//this handles minor tweaks to the edges of the bounding box
 	GetRealBBox		(x, y, w, h) //these are signed, and passed into the box's tweak function
 	
+	//can add extra stuff here to modify the BBox directly
+	
 	//the positon is handled by a 2D vector
 	SetPosition		(x, y)
 	SetPosition		(Vector2)
@@ -79,3 +81,83 @@ Actor:
 	
 end
 
+-------------------------
+
+Although the verbose option is a possibility, let's simplify it
+See above for a more detailed explanation of some of these
+
+Actor (simple):
+	-Image		spr
+	-Animator	ani
+	-BBox		box
+	-Vector2	pos
+	-Vector2	mot
+	
+	Constructor
+	Destructor
+	
+	Update			(delta)
+	
+	LoadSprite		(fname) //need to consider resource allocation at some point
+	UnloadSprite	()
+	
+	SetWidth		(Uint16)
+	SetHeight		(Uint16)
+	GetWidth		()
+	getHeight		()
+	
+	SetSpriteIndex	(Uint16)
+	GetSpriteIndex	()
+	
+	SetSpriteSpeed	(Uint16) //frames per second
+	GetSpriteSpeed	()
+	
+	DrawTo			(dest, camX, camY)
+	
+	GetRealBBox		(x, y, w, h)
+	
+	SetPosition		(Vector2) //can just pass SetPosition(Vector2(x, y)) instead of overloading
+	SetX			(double)
+	SetY			(double)
+	
+	ShiftPosition	(Vector2) //?
+	ShiftX			(double)
+	ShiftY			(double)
+	
+	GetX			()
+	GetY			()
+	
+	SetMotion		(Vector2)
+	SetMotionX		(double)
+	SetMotionY		(double)
+	
+	ShiftMotionX	(double)
+	ShiftMotionY	(double)
+	
+	GetMotionX		()
+	GetMotionY		()
+end
+
+-------------------------
+
+The above methods are OK as a general solution, but maybe I should make it more modular.
+If I have different classes for different objects, it'd probably be ok, but am I making it
+too complicated?
+
+Actor:
+	sprite
+	bounding box
+	animation
+	position
+	motion
+end
+
+The above is essentially what is in Actor, which would be the parent of these:
+
+* Player
+* NPCs
+* Items (possibly)
+* Monsters
+* Other things I haven't thought of.
+
+Which do I choose?
