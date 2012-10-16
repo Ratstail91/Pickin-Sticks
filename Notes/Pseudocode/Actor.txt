@@ -1,6 +1,6 @@
 To redesign the actor class
 
-this class not only implements all five systems, but also swaps around them
+this class not only implements all five systems, but also wraps around them
 
 Actor:
 	-Image		spr
@@ -98,7 +98,8 @@ Actor (simple):
 	
 	Update			(delta)
 	
-	LoadSprite		(fname) //need to consider resource allocation at some point
+	LoadSprite		(fname, width, height) //need to consider resource allocation at some point
+	SetSprite		(surface, width, height)
 	UnloadSprite	()
 	
 	SetWidth		(Uint16)
@@ -115,6 +116,8 @@ Actor (simple):
 	DrawTo			(dest, camX, camY)
 	
 	GetRealBBox		(x, y, w, h)
+	
+	//can add extra stuff here to modify the BBox directly
 	
 	SetPosition		(Vector2) //can just pass SetPosition(Vector2(x, y)) instead of overloading
 	SetX			(double)
