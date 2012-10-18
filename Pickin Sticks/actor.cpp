@@ -13,7 +13,18 @@ Actor::~Actor() {
 }
 
 void Actor::Update(int delta) {
-	//
+	//TODO animator needs to be revised in codebase to use the delta
+
+	//if motion is zero (TODO this is temporary, see Pseudocode.txt for details)
+	if (m_motion.x == 0 && m_motion.y == 0) {
+		//stop the sprite animation
+		m_animator.SetInterval( 0 );
+		m_animator.SetFrame( 0 );
+	}
+
+	//move
+	m_position += m_motion * delta;
+	m_animator.Update();
 }
 
 //-------------------------
@@ -21,51 +32,100 @@ void Actor::Update(int delta) {
 //-------------------------
 
 void Actor::LoadSprite(const char* fname, Uint16 width, Uint16 height) {
-	//
+	//load the file
+	m_image.LoadSurface(fname);
+
+	/* Note: This used to be similar to the zeroing system in UnloadSprite(),
+	 * but I changed it for simplicity.
+	*/
+	SetWidth( width );
+	SetHeight( height );
 }
 
 void Actor::SetSprite(SDL_Surface* surface, Uint16 width, Uint16 height) {
-	//
+	//load the file
+	m_image.SetSurface(surface);
+
+	/* Note: This used to be similar to the zeroing system in UnloadSprite(),
+	 * but I changed it for simplicity.
+	*/
+	SetWidth( width );
+	SetHeight( height );
 }
 
 void Actor::UnloadSprite() {
-	//
+	m_image.UnloadSurface();
+
+	//zero the values of the actor
+	SDL_Rect zeroclip = {0, 0, 0, 0};
+
+	m_image.SetClip(zeroclip);
+	*reinterpret_cast<SDL_Rect*>(&m_bbox) = zeroclip;
+
+	m_animator.SetFrameCount( 0 );
 }
 
-Uint16 Actor::SetWidth(Uint16) {
-	//
+Uint16 Actor::SetWidth(Uint16 w) {
+	//set the values
+	m_image.SetClipW( w );
+	m_bbox.w = w;
+
+	//adjust the spritesheet
+	m_animator.SetFrameCount( (w > 0) ? m_image.GetSurface()->w / w : 0 );
+
+	return m_image.GetClipW();
 }
 
-Uint16 Actor::SetHeight(Uint16) {
-	//
+Uint16 Actor::SetHeight(Uint16 h) {
+	//set the values
+	m_image.SetClipH( h );
+	m_bbox.h = h;
+
+	//reset the sprite index (lazy)
+	m_image.SetClipY( 0 );
+
+	return m_image.GetClipH();
 }
 
 Uint16 Actor::GetWidth() {
-	//
+	return m_image.GetClipW();
 }
 
 Uint16 Actor::GetHeight() {
-	//
+	return m_image.GetClipH();
 }
 
-Uint16 Actor::SetSpriteIndex(Uint16) {
-	//
+Uint16 Actor::SetSpriteIndex(Uint16 index) {
+	//zero the frame
+	m_image.SetClipX( 0 );
+	m_animator.SetFrame( 0 );
+
+	//set the index
+	m_image.SetClipY( index * m_image.GetClipH() );
+
+	return GetSpriteIndex();
 }
 
 Uint16 Actor::GetSpriteIndex() {
-	//
+	return (m_image.GetClipH() > 0) ? m_image.GetClipY() / m_image.GetClipH() : 0;
 }
 
-Uint16 Actor::SetSpriteSpeed(Uint16) {
-	//
+Uint16 Actor::SetSpriteSpeed(Uint16 fps) {
+	m_animator.SetInterval( (fps > 0) ? 1000 / fps : 0 );
+
+	return GetSpriteSpeed();
 }
 
 Uint16 Actor::GetSpriteSpeed() {
-	//
+	return (m_animator.GetInterval() > 0) ? 1000 / (Uint16)m_animator.GetInterval() : 0;
 }
 
 void Actor::DrawTo(SDL_Surface* dest, int camX, int camY) {
-	//
+	//set the current frame
+	m_image.SetClipX( m_animator.GetFrame() * m_image.GetClipW() );
+
+	//draw to the correct pos, and hook the camera
+	m_image.DrawTo(dest, (int)m_position.x + camX, (int)m_position.y + camY);
 }
 
 //-------------------------

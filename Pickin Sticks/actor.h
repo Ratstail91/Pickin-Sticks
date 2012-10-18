@@ -26,13 +26,13 @@ public:
 	Uint16 GetWidth			();
 	Uint16 GetHeight		();
 
-	Uint16 SetSpriteIndex	(Uint16);
+	Uint16 SetSpriteIndex	(Uint16 index);
 	Uint16 GetSpriteIndex	();
 
-	Uint16 SetSpriteSpeed	(Uint16);
+	Uint16 SetSpriteSpeed	(Uint16 fps);
 	Uint16 GetSpriteSpeed	();
 
-	void DrawTo				(SDL_Surface* dest, int camX, int camY);
+	void DrawTo				(SDL_Surface* dest, int camX = 0, int camY = 0);
 
 	/* Bounding Box Management */
 	BBox GetWorldBBox();
@@ -66,6 +66,13 @@ public:
 
 	double GetMotionX();
 	double GetMotionY();
+
+	//debugging
+//	Image*		GetImage()		{ return &m_image; }
+//	Animator*	GetAnimator()	{ return &m_animator; }
+//	BBox*		GetBBox()		{ return &m_bbox; }
+//	Vector2*	GetPosition()	{ return &m_position; }
+//	Vector2*	GetMotion()		{ return &m_motion; }
 
 private:
 	/* Private access members */
