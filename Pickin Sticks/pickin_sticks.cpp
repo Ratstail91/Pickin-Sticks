@@ -11,7 +11,9 @@
 //-------------------------
 
 PickinSticks::PickinSticks() {
-	//
+	grass.LoadSurface("grass.bmp");
+	player.LoadSprite("elliot2.bmp", 32, 48);
+	stick.LoadSprite("stick.bmp");
 }
 
 PickinSticks::~PickinSticks() {
@@ -35,7 +37,15 @@ void PickinSticks::Update() {
 }
 
 void PickinSticks::Render(SDL_Surface* const screen) {
-	//
+	//draw the grass everywhere
+	for (int i = 0; i < screen->w; i += grass.GetClipW()) {
+		for (int j = 0; j < screen->h; j += grass.GetClipH()) {
+			grass.DrawTo(screen, i, j);
+		}
+	}
+
+	player.DrawTo(screen);
+	stick.DrawTo(screen);
 }
 
 //-------------------------
@@ -59,6 +69,11 @@ void PickinSticks::KeyDown(SDL_KeyboardEvent const& key) {
 		case SDLK_ESCAPE:
 			QuitEvent();
 			break;
+	}
+
+	//character movement, only calculated when it's not moving
+	if (player.GetMotion() == 0) {
+		//
 	}
 }
 

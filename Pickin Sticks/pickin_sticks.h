@@ -9,6 +9,10 @@
 
 #include "scene.h"
 
+#include "actor.h"
+
+#include "image.h"
+
 class PickinSticks : public Scene {
 public:
 	/* Public access members */
@@ -28,6 +32,12 @@ protected:
 	virtual void MouseButtonUp		(SDL_MouseButtonEvent const&);
 	virtual void KeyDown			(SDL_KeyboardEvent const&);
 	virtual void KeyUp				(SDL_KeyboardEvent const&);
+
+	/* Members */
+	Actor player;
+	Actor stick;
+
+	Image grass;
 };
 
 #endif
