@@ -1,6 +1,7 @@
->	Use SetWidth() and SetHeight() instead of the finnicky that's stuff in actor.cpp right now.
-*	Modify Animator to use Delta
-*	Add frame interval parameter to Actor::Update()?
+-	Add frame interval parameter to Actor::Update()?
 		This could give different speeds for different actors, and would remove hardcoding
-*	Decide if I should use "frames per second" or "millisecond intervals" for sprite animations
-*	Should I set the frame index inside Actor::Update()?
+		what does this mean? I've forgotton, probably not important then.
+-	Decide if I should use "frames per second" or "millisecond intervals" for sprite animations
+		it's fine how it is for now
+-	Should I set the frame index inside Actor::Update()?
+		no, it's fine in the draw funcion
