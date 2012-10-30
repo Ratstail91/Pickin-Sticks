@@ -17,8 +17,8 @@ public:
 	void Update(int delta);
 
 	/* Sprite management */
-	void LoadSprite			(const char* fname, Uint16 width, Uint16 height);
-	void SetSprite			(SDL_Surface* surface, Uint16 width, Uint16 height);
+	void LoadSprite			(const char* fname, Uint16 width = 0, Uint16 height = 0);
+	void SetSprite			(SDL_Surface* surface, Uint16 width = 0, Uint16 height = 0);
 	void UnloadSprite		();
 
 	Uint16 SetWidth			(Uint16);

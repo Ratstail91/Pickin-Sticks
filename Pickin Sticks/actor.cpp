@@ -58,19 +58,19 @@ void Actor::UnloadSprite() {
 
 Uint16 Actor::SetWidth(Uint16 w) {
 	//set the values
-	image.SetClipW( w );
-	bbox.w = w;
+	image.SetClipW( w ? w : image.GetSurface()->w );
+	bbox.w = w ? w : image.GetSurface()->w;
 
 	//adjust the spritesheet
-	animator.SetFrameCount( (w > 0) ? image.GetSurface()->w / w : 0 );
+	animator.SetFrameCount( w ? image.GetSurface()->w / w : 0 );
 
 	return image.GetClipW();
 }
 
 Uint16 Actor::SetHeight(Uint16 h) {
 	//set the values
-	image.SetClipH( h );
-	bbox.h = h;
+	image.SetClipH( h ? h : image.GetSurface()->h );
+	bbox.h = h ? h : image.GetSurface()->h;
 
 	//reset the sprite index (lazy)
 	image.SetClipY( 0 );
