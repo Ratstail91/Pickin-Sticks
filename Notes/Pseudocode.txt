@@ -1,0 +1,9 @@
+grass
+actor
+stick
+
+load the grass, and draw it everywhere
+
+load the actor
+load the stick
+
