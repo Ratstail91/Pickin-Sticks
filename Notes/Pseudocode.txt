@@ -63,3 +63,45 @@ KeyUp(key):
 	//right...
 end
 
+-------------------------
+
+while running:
+	while poll event:
+		switch event.type:
+			case QUIT:
+				running = false
+			
+			case KEYDOWN:
+				KeyDown(event.key)
+			
+			case KEYUP:
+				KeyUp(event.key)
+		end
+	end
+	
+	update
+	draw
+end
+
+
+KeyDown(key):
+	if key == escape etc.
+	
+	//character movement
+	if speed == 0
+		if (key == up) move up
+		if (key == down) move down
+		if (key == left) move left
+		if (key == right) move right
+	end
+end
+
+KeyUp(key):
+	if speed != 0
+		if (key == up && movement == up) stop
+		if (key == down && movement == down) stop
+		if (key == left && movement == left) stop
+		if (key == right && movement == right) stop
+	end
+end
+
