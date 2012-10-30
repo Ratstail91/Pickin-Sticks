@@ -67,20 +67,13 @@ public:
 	double GetMotionX();
 	double GetMotionY();
 
-	//debugging
-//	Image*		GetImage()		{ return &m_image; }
-//	Animator*	GetAnimator()	{ return &m_animator; }
-//	BBox*		GetBBox()		{ return &m_bbox; }
-//	Vector2*	GetPosition()	{ return &m_position; }
-//	Vector2*	GetMotion()		{ return &m_motion; }
-
 private:
 	/* Private access members */
-	Image  m_image;
-	Animator m_animator;
-	BBox m_bbox;
-	Vector2 m_position;
-	Vector2 m_motion;
+	Image  image;
+	Animator animator;
+	BBox bbox;
+	Vector2 position;
+	Vector2 motion;
 };
 
 #endif

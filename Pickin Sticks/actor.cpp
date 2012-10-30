@@ -14,8 +14,8 @@ Actor::~Actor() {
 
 void Actor::Update(int delta) {
 	//move
-	m_position += m_motion * delta;
-	m_animator.Update(); //animation is independant of delta
+	position += motion * delta;
+	animator.Update(); //animation is independant of delta
 }
 
 //-------------------------
@@ -24,7 +24,7 @@ void Actor::Update(int delta) {
 
 void Actor::LoadSprite(const char* fname, Uint16 width, Uint16 height) {
 	//load the file
-	m_image.LoadSurface(fname);
+	image.LoadSurface(fname);
 
 	/* Note: This used to be similar to the zeroing system in UnloadSprite(),
 	 * but I changed it for simplicity.
@@ -35,7 +35,7 @@ void Actor::LoadSprite(const char* fname, Uint16 width, Uint16 height) {
 
 void Actor::SetSprite(SDL_Surface* surface, Uint16 width, Uint16 height) {
 	//load the file
-	m_image.SetSurface(surface);
+	image.SetSurface(surface);
 
 	/* Note: This used to be similar to the zeroing system in UnloadSprite(),
 	 * but I changed it for simplicity.
@@ -45,78 +45,78 @@ void Actor::SetSprite(SDL_Surface* surface, Uint16 width, Uint16 height) {
 }
 
 void Actor::UnloadSprite() {
-	m_image.UnloadSurface();
+	image.UnloadSurface();
 
 	//zero the values of the actor
 	SDL_Rect zeroclip = {0, 0, 0, 0};
 
-	m_image.SetClip(zeroclip);
-	*reinterpret_cast<SDL_Rect*>(&m_bbox) = zeroclip;
+	image.SetClip(zeroclip);
+	*reinterpret_cast<SDL_Rect*>(&bbox) = zeroclip;
 
-	m_animator.SetFrameCount( 0 );
+	animator.SetFrameCount( 0 );
 }
 
 Uint16 Actor::SetWidth(Uint16 w) {
 	//set the values
-	m_image.SetClipW( w );
-	m_bbox.w = w;
+	image.SetClipW( w );
+	bbox.w = w;
 
 	//adjust the spritesheet
-	m_animator.SetFrameCount( (w > 0) ? m_image.GetSurface()->w / w : 0 );
+	animator.SetFrameCount( (w > 0) ? image.GetSurface()->w / w : 0 );
 
-	return m_image.GetClipW();
+	return image.GetClipW();
 }
 
 Uint16 Actor::SetHeight(Uint16 h) {
 	//set the values
-	m_image.SetClipH( h );
-	m_bbox.h = h;
+	image.SetClipH( h );
+	bbox.h = h;
 
 	//reset the sprite index (lazy)
-	m_image.SetClipY( 0 );
+	image.SetClipY( 0 );
 
-	return m_image.GetClipH();
+	return image.GetClipH();
 }
 
 Uint16 Actor::GetWidth() {
-	return m_image.GetClipW();
+	return image.GetClipW();
 }
 
 Uint16 Actor::GetHeight() {
-	return m_image.GetClipH();
+	return image.GetClipH();
 }
 
 Uint16 Actor::SetSpriteIndex(Uint16 index) {
 	//zero the frame
-	m_image.SetClipX( 0 );
-	m_animator.SetFrame( 0 );
+	image.SetClipX( 0 );
+	animator.SetFrame( 0 );
 
 	//set the index
-	m_image.SetClipY( index * m_image.GetClipH() );
+	image.SetClipY( index * image.GetClipH() );
 
 	return GetSpriteIndex();
 }
 
 Uint16 Actor::GetSpriteIndex() {
-	return (m_image.GetClipH() > 0) ? m_image.GetClipY() / m_image.GetClipH() : 0;
+	return (image.GetClipH() > 0) ? image.GetClipY() / image.GetClipH() : 0;
 }
 
 Uint16 Actor::SetSpriteSpeed(Uint16 fps) {
-	m_animator.SetInterval( (fps > 0) ? 1000 / fps : 0 );
+	animator.SetInterval( (fps > 0) ? 1000 / fps : 0 );
 
 	return GetSpriteSpeed();
 }
 
 Uint16 Actor::GetSpriteSpeed() {
-	return (m_animator.GetInterval() > 0) ? 1000 / (Uint16)m_animator.GetInterval() : 0;
+	return (animator.GetInterval() > 0) ? 1000 / (Uint16)animator.GetInterval() : 0;
 }
 
 void Actor::DrawTo(SDL_Surface* dest, int camX, int camY) {
 	//set the current frame
-	m_image.SetClipX( m_animator.GetFrame() * m_image.GetClipW() );
+	image.SetClipX( animator.GetFrame() * image.GetClipW() );
 
 	//draw to the correct pos, and hook the camera
-	m_image.DrawTo(dest, (int)m_position.x + camX, (int)m_position.y + camY);
+	image.DrawTo(dest, (int)position.x + camX, (int)position.y + camY);
 }
 
 //-------------------------
@@ -124,15 +124,15 @@ void Actor::DrawTo(SDL_Surface* dest, int camX, int camY) {
 //-------------------------
 
 BBox Actor::GetWorldBBox() {
-	return m_bbox.Tweak( (int16_t)m_position.x, (int16_t)m_position.y, 0, 0);
+	return bbox.Tweak( (int16_t)position.x, (int16_t)position.y, 0, 0);
 }
 
 BBox Actor::SetRawBBox(BBox b) {
-	return m_bbox = b;
+	return bbox = b;
 }
 
 BBox Actor::GetRawBBox() {
-	return m_bbox;
+	return bbox;
 }
 
 //-------------------------
@@ -140,38 +140,38 @@ BBox Actor::GetRawBBox() {
 //-------------------------
 
 Vector2 Actor::SetPosition(Vector2 v) {
-	return m_position = v;
+	return position = v;
 }
 
 Vector2 Actor::SetPosition(double x, double y) {
-	m_position.x = x;
-	m_position.y = y;
+	position.x = x;
+	position.y = y;
 
-	return m_position;
+	return position;
 }
 
 double Actor::SetX(double x) {
-	return m_position.x = x;
+	return position.x = x;
 }
 
 double Actor::SetY(double y) {
-	return m_position.y = y;
+	return position.y = y;
 }
 
 double Actor::ShiftX(double x) {
-	return m_position.x += x;
+	return position.x += x;
 }
 
 double Actor::ShiftY(double y) {
-	return m_position.y += y;
+	return position.y += y;
 }
 
 double Actor::GetX() {
-	return m_position.x;
+	return position.x;
 }
 
 double Actor::GetY() {
-	return m_position.y;
+	return position.y;
 }
 
 //-------------------------
@@ -179,36 +179,36 @@ double Actor::GetY() {
 //-------------------------
 
 Vector2 Actor::SetMotion(Vector2 v) {
-	return m_motion = v;
+	return motion = v;
 }
 
 Vector2 Actor::SetMotion(double x, double y) {
-	m_motion.x = x;
-	m_motion.y = y;
+	motion.x = x;
+	motion.y = y;
 
-	return m_motion;
+	return motion;
 }
 
 double Actor::SetMotionX(double x) {
-	return m_motion.x = x;
+	return motion.x = x;
 }
 
 double Actor::SetMotionY(double y) {
-	return m_motion.y = y;
+	return motion.y = y;
 }
 
 double Actor::ShiftMotionX(double x) {
-	return m_motion.x += x;
+	return motion.x += x;
 }
 
 double Actor::ShiftMotionY(double y) {
-	return m_motion.y += y;
+	return motion.y += y;
 }
 
 double Actor::GetMotionX() {
-	return m_motion.x;
+	return motion.x;
 }
 
 double Actor::GetMotionY() {
-	return m_motion.y;
+	return motion.y;
 }
