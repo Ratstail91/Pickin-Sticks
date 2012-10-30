@@ -164,3 +164,113 @@ The above is essentially what is in Actor, which would be the parent of these:
 * Other things I haven't thought of.
 
 Which do I choose?
+
+-------------------------
+
+Smooth character movement (drawn from Jumpman)
+
+TODO work animation code into this
+
+Actor::Update(delta)
+	position += motion * delta //vectors rock
+	
+	animator.Update(delta) //when the redesign is finished.
+end
+
+
+
+KeyDown(key):
+	/* Each keypress pushes the character is a certain direction
+	 * 
+	 * On key press:
+	 *   if shifting in a certain direction does NOT break the "speed limit" then
+	 *     shift in that direction
+	 *   end
+	 * 
+	*/
+	
+	//up
+	if (key == up):
+		if (actor.GetMotionY() - SPEED >= -SPEED): //Note: inverted values for up & left
+			actor.ShiftMotonY( -SPEED )
+			actor.SetFrameIndex( UP )//?
+			//setting the frame index in Update would be smoother, but less portable
+			//and would constrain the layout of the spritesheets even more
+		end
+	end
+	
+	//down...
+	//left...
+	//right...
+end
+
+
+
+KeyUp(key):
+	/* Each keyrelease slows the character down, or stops the character
+	 * 
+	 * On key press:
+	 *   if shifting in a certain direction does NOT drop below zero then
+	 *     shift in that direction
+	 *   else
+	 *     set speed in that direction to zero
+	 *   end
+	 * 
+	*/
+	
+	//up
+	if (key == up):
+		if (actor.GetMotionY() + SPEED <= 0): //Note: inverted values for up & left
+			actor.ShiftMotionY( SPEED )
+		else
+			actor.SetMotionY( 0 )
+		end
+	end
+	
+	//down...
+	//left...
+	//right...
+end
+
+-------------------------
+
+while running:
+	while poll event:
+		switch event.type:
+			case QUIT:
+				running = false
+			
+			case KEYDOWN:
+				KeyDown(event.key)
+			
+			case KEYUP:
+				KeyUp(event.key)
+		end
+	end
+	
+	update
+	draw
+end
+
+
+KeyDown(key):
+	if key == escape etc.
+	
+	//character movement
+	if speed == 0
+		if (key == up) move up
+		if (key == down) move down
+		if (key == left) move left
+		if (key == right) move right
+	end
+end
+
+KeyUp(key):
+	if speed != 0
+		if (key == up && movement == up) stop
+		if (key == down && movement == down) stop
+		if (key == left && movement == left) stop
+		if (key == right && movement == right) stop
+	end
+end
+
