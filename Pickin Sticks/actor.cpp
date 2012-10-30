@@ -13,18 +13,9 @@ Actor::~Actor() {
 }
 
 void Actor::Update(int delta) {
-	//TODO animator needs to be revised in codebase to use the delta
-
-	//if motion is zero (TODO this is temporary, see Pseudocode.txt for details)
-	if (m_motion.x == 0 && m_motion.y == 0) {
-		//stop the sprite animation
-		m_animator.SetInterval( 0 );
-		m_animator.SetFrame( 0 );
-	}
-
 	//move
 	m_position += m_motion * delta;
-	m_animator.Update();
+	m_animator.Update(); //animation is independant of delta
 }
 
 //-------------------------
