@@ -6,6 +6,13 @@
 */
 #include "pickin_sticks.h"
 
+#include "delta.h"
+
+#include <iostream>
+using namespace std;
+
+#define SPEED 0.14
+
 //-------------------------
 //Public access members
 //-------------------------
@@ -33,7 +40,10 @@ void PickinSticks::FrameEnd() {
 }
 
 void PickinSticks::Update() {
-	//
+	Delta::CalcDelta();
+
+	player.Update( Delta::GetDelta() );
+	stick.Update( Delta::GetDelta() );
 }
 
 void PickinSticks::Render(SDL_Surface* const screen) {
@@ -71,12 +81,51 @@ void PickinSticks::KeyDown(SDL_KeyboardEvent const& key) {
 			break;
 	}
 
-	//character movement, only calculated when it's not moving
+	//character movement, only calculated when it's NOT moving
 	if (player.GetMotion() == 0) {
-		//
+		switch(key.keysym.sym) {
+			case SDLK_UP:
+				player.SetMotionY(-SPEED);
+				break;
+
+			case SDLK_DOWN:
+				player.SetMotionY(SPEED);
+				break;
+
+			case SDLK_LEFT:
+				player.SetMotionX(-SPEED);
+				break;
+
+			case SDLK_RIGHT:
+				player.SetMotionX(SPEED);
+				break;
+		}
 	}
 }
 
 void PickinSticks::KeyUp(SDL_KeyboardEvent const& key) {
-	//
+	//character movement, only calculated when it IS moving
+	if (player.GetMotion() != 0) {
+		switch(key.keysym.sym) {
+			case SDLK_UP:
+				if (player.GetMotionY() < 0)
+					player.SetMotionY(0);
+				break;
+
+			case SDLK_DOWN:
+				if (player.GetMotionY() > 0)
+					player.SetMotionY(0);
+				break;
+
+			case SDLK_LEFT:
+				if (player.GetMotionX() < 0)
+					player.SetMotionX(0);
+				break;
+
+			case SDLK_RIGHT:
+				if (player.GetMotionX() > 0)
+					player.SetMotionX(0);
+				break;
+		}
+	}
 }
