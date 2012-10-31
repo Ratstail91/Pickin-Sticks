@@ -8,6 +8,3 @@
 
 *	Actor's animation state (on or off) should be independant of the interval
 		this way, the interval value isn't lost when you stop walking!!
-
-*	Add "GetMotion()" to actor
-*	Add operator==(int), operator!=(int) and predefined macros (ZERO, etc.) to Vector2 & Vector3
