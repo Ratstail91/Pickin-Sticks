@@ -32,6 +32,12 @@ public:
 	Uint16 SetSpriteSpeed	(Uint16 fps);
 	Uint16 GetSpriteSpeed	();
 
+	Uint16 SetSpriteFrame	(Uint16 frame);
+	Uint16 GetSpriteFrame	();
+
+	bool SetAnimationActive	(bool);
+	bool GetAnimationActive	();
+
 	void DrawTo				(SDL_Surface* dest, int camX = 0, int camY = 0);
 
 	/* Bounding Box Management */

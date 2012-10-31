@@ -7,3 +7,47 @@ load the grass, and draw it everywhere
 load the actor
 load the stick
 
+-------------------------
+
+one button = move in that direction
+opposing buttons = cancel out
+non-opposing buttons = move diagonally, half speed in each direction
+
+
+
+KeyDown(key):
+	case SDLK_UP:
+		ShiftActor(&actor, DIR_UP)
+	
+	...
+end
+
+KeyUp(key):
+	case SDLK_UP:
+		ShiftActor(&actor, DIR_DOWN)
+	
+	...
+end
+
+-------------------------
+
+SpriteSheet, from -Image:
+	-Animator
+	
+	SetCellWidth...
+	SetCellHeight...
+	Get...
+	
+	SetSprite(...) //along the y axis
+	Get...
+	
+	SetCell...
+	Get...
+	
+	SetAnimationSpeed...
+	Get...
+	
+	SetAnimationActive...
+	Get...
+	
+	

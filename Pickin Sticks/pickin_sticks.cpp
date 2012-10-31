@@ -21,6 +21,9 @@ PickinSticks::PickinSticks() {
 	grass.LoadSurface("grass.bmp");
 	player.LoadSprite("elliot2.bmp", 32, 48);
 	stick.LoadSprite("stick.bmp");
+
+	player.SetSpriteSpeed(30);
+	player.SetAnimationActive(false);
 }
 
 PickinSticks::~PickinSticks() {
@@ -42,8 +45,9 @@ void PickinSticks::FrameEnd() {
 void PickinSticks::Update() {
 	Delta::CalcDelta();
 
-	player.Update( Delta::GetDelta() );
-	stick.Update( Delta::GetDelta() );
+	//update all actors
+	player.Update(Delta::GetDelta());
+	stick.Update(Delta::GetDelta());
 }
 
 void PickinSticks::Render(SDL_Surface* const screen) {
@@ -86,18 +90,26 @@ void PickinSticks::KeyDown(SDL_KeyboardEvent const& key) {
 		switch(key.keysym.sym) {
 			case SDLK_UP:
 				player.SetMotionY(-SPEED);
+				player.SetAnimationActive(true);
+				player.SetSpriteIndex(1);
 				break;
 
 			case SDLK_DOWN:
 				player.SetMotionY(SPEED);
+				player.SetAnimationActive(true);
+				player.SetSpriteIndex(0);
 				break;
 
 			case SDLK_LEFT:
 				player.SetMotionX(-SPEED);
+				player.SetAnimationActive(true);
+				player.SetSpriteIndex(2);
 				break;
 
 			case SDLK_RIGHT:
 				player.SetMotionX(SPEED);
+				player.SetAnimationActive(true);
+				player.SetSpriteIndex(3);
 				break;
 		}
 	}
@@ -108,23 +120,31 @@ void PickinSticks::KeyUp(SDL_KeyboardEvent const& key) {
 	if (player.GetMotion() != 0) {
 		switch(key.keysym.sym) {
 			case SDLK_UP:
-				if (player.GetMotionY() < 0)
+				if (player.GetMotionY() < 0) {
 					player.SetMotionY(0);
+					player.SetAnimationActive(false);
+				}
 				break;
 
 			case SDLK_DOWN:
-				if (player.GetMotionY() > 0)
+				if (player.GetMotionY() > 0) {
 					player.SetMotionY(0);
+					player.SetAnimationActive(false);
+				}
 				break;
 
 			case SDLK_LEFT:
-				if (player.GetMotionX() < 0)
+				if (player.GetMotionX() < 0) {
 					player.SetMotionX(0);
+					player.SetAnimationActive(false);
+				}
 				break;
 
 			case SDLK_RIGHT:
-				if (player.GetMotionX() > 0)
+				if (player.GetMotionX() > 0) {
 					player.SetMotionX(0);
+					player.SetAnimationActive(false);
+				}
 				break;
 		}
 	}

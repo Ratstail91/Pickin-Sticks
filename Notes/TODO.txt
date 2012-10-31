@@ -6,5 +6,8 @@
 -	Should I set the frame index inside Actor::Update()?
 		no, it's fine in the draw funcion
 
-*	Actor's animation state (on or off) should be independant of the interval
-		this way, the interval value isn't lost when you stop walking!!
+*	Should "Sprite" be an independant module from actor?
+		It could include the image & animation class; essentially a wrapper
+
+*	I might have too many layers of abstraction, or not enough!
+

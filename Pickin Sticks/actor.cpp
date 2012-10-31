@@ -88,17 +88,17 @@ Uint16 Actor::GetHeight() {
 
 Uint16 Actor::SetSpriteIndex(Uint16 index) {
 	//zero the frame
-	image.SetClipX( 0 );
-	animator.SetFrame( 0 );
+	image.SetClipX(0);
+	animator.SetFrame(0);
 
 	//set the index
-	image.SetClipY( index * image.GetClipH() );
+	image.SetClipY(index * image.GetClipH());
 
 	return GetSpriteIndex();
 }
 
 Uint16 Actor::GetSpriteIndex() {
-	return (image.GetClipH() > 0) ? image.GetClipY() / image.GetClipH() : 0;
+	return (image.GetClipH()) ? (image.GetClipY() / image.GetClipH()) : 0;
 }
 
 Uint16 Actor::SetSpriteSpeed(Uint16 fps) {
@@ -108,7 +108,27 @@ Uint16 Actor::SetSpriteSpeed(Uint16 fps) {
 }
 
 Uint16 Actor::GetSpriteSpeed() {
-	return (animator.GetInterval() > 0) ? 1000 / (Uint16)animator.GetInterval() : 0;
+	return (animator.GetInterval()) ? 1000 / (Uint16)animator.GetInterval() : 0;
+}
+
+Uint16 Actor::SetSpriteFrame(Uint16 frame) {
+	return animator.SetFrame(frame);
+}
+
+Uint16 Actor::GetSpriteFrame() {
+	return animator.GetFrame();
+}
+
+bool Actor::SetAnimationActive(bool b) {
+	//if it's stopping, return to the first frame
+	if (!b)
+		animator.SetFrame(0);
+
+	return animator.SetActive(b);
+}
+
+bool Actor::GetAnimationActive() {
+	return animator.GetActive();
 }
 
 void Actor::DrawTo(SDL_Surface* dest, int camX, int camY) {
