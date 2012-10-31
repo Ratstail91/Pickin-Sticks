@@ -166,6 +166,10 @@ double Actor::ShiftY(double y) {
 	return position.y += y;
 }
 
+Vector2 Actor::GetPosition() {
+	return position;
+}
+
 double Actor::GetX() {
 	return position.x;
 }
@@ -203,6 +207,10 @@ double Actor::ShiftMotionX(double x) {
 
 double Actor::ShiftMotionY(double y) {
 	return motion.y += y;
+}
+
+Vector2 Actor::GetMotion() {
+	return motion;
 }
 
 double Actor::GetMotionX() {

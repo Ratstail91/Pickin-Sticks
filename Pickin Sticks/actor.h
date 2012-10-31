@@ -52,6 +52,7 @@ public:
 	double ShiftX(double);
 	double ShiftY(double);
 
+	Vector2 GetPosition();
 	double GetX();
 	double GetY();
 
@@ -64,6 +65,7 @@ public:
 	double ShiftMotionX(double);
 	double ShiftMotionY(double);
 
+	Vector2 GetMotion();
 	double GetMotionX();
 	double GetMotionY();
 
