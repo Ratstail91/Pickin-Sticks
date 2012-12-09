@@ -1,0 +1,58 @@
+My goal is to have a smooth movement system that I can easily implement in later projects.
+
+The current version only has input from one directional button at a time. This would be fine
+in retro games, but here it's not good enough. I need the following:
+
+	Single direction, move in that direction
+	two compatable inputs, move diagonally (at 0.7 times the normal cardinal speed)
+	two opposing inputs cancel out, follow the other inputs...
+
+The diagonal speed is not the same as cardianl speed. The distance from two opposite corners of
+a square is sqrt(2), so motion in the diagonal direction should be reduced by 1 / sqrt(2) (0.7).
+
+-------------------------
+
+KeyDown(key):
+	switch(key)
+		case UP: add UP to the motion vector
+		case DOWN: add DOWN to the motion vector
+		case LEFT: add LEFT to the motion vector
+		case RIGHT: add RIGHT to the motion vector
+	end
+end
+
+//The strange logic here is to prevent "release" bugs
+
+KeyUp(key)
+	switch(key)
+		case UP:
+			if motion.y + CHAR_SPEED <= CHAR_SPEED
+				motion.y += CHAR_PSEED
+		...
+	end
+end
+
+//the correction code here is ok, and is ideal in an aggregation system
+
+Actor::Update(delta)
+	//motion
+	if (motion.x && motion.y)
+		position += motion * delta * 0.7 //moving diagonally
+	
+	else if (motion.x || motion.y)
+		position += motion * delta //moving in a cardinal direction
+	end
+	
+	//graphics
+	if (motion != 0) //moving
+		if (motion.y > 0) set frame down
+		elif (motion.y < 0) set frame up
+		elif (motion.x > 0) set frame right
+		elif (motion.x < 0) set frame left
+		
+		//update the frame
+		animator.Update()
+	else
+		set frame to 0
+	end
+end

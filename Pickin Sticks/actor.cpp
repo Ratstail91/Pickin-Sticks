@@ -13,9 +13,27 @@ Actor::~Actor() {
 }
 
 void Actor::Update(int delta) {
-	//move
-	position += motion * delta;
-	animator.Update(); //animation is independant of delta
+	//motion
+	if (motion.x && motion.y) {
+		position += motion * delta * 0.71; //moving diagonally
+	}
+	else if (motion.x || motion.y) {
+		position += motion * delta; //moving in a cardinal direction
+	}
+
+	//graphics
+	if (motion != 0) {
+		if (motion.y > 0) SetSpriteIndex(0);
+		else if (motion.y < 0) SetSpriteIndex(1);
+		else if (motion.x > 0) SetSpriteIndex(3);
+		else if (motion.x < 0) SetSpriteIndex(2);
+
+		//update the frame
+		animator.Update();
+	}
+	else {
+		SetSpriteFrame(0);
+	}
 }
 
 //-------------------------

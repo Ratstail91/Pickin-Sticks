@@ -165,9 +165,13 @@ The above is essentially what is in Actor, which would be the parent of these:
 
 Which do I choose?
 
+Note: in later projects, using na aggregation method from the start is probably the best option.
+
 -------------------------
 
 Smooth character movement (drawn from Jumpman)
+
+Deprecated: Jumpman's logic wasn't as good as I thought. Moved this problem to "Movement Logic.txt"
 
 TODO work animation code into this
 
