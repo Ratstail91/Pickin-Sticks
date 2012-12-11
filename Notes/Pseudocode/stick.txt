@@ -1,0 +1,9 @@
+The stick has:
+	Image
+	BBox
+	position
+end
+
+Randomise the position of the stick based on the screen size
+
+When the player collides with the stick, relocate the stick and increase the score by 1

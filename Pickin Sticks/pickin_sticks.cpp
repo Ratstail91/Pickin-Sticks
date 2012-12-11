@@ -1,6 +1,6 @@
 /* File Name: pickin_sticks.cpp
  * Author: Kayne Ruse
- * Date (dd/mm/yyyy): 31/10/2012
+ * Date (dd/mm/yyyy): ...
  * Copyright: ...
  * Description: ...
 */
@@ -9,6 +9,9 @@
 #include "delta.h"
 
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
 using namespace std;
 
 #define CHAR_SPEED 0.14
@@ -20,10 +23,18 @@ using namespace std;
 PickinSticks::PickinSticks() {
 	grass.LoadSurface("grass.bmp");
 	player.LoadSprite("elliot2.bmp", 32, 48);
-	stick.LoadSprite("stick.bmp");
+	stick.GetImage()->LoadSurface("stick.bmp");
 
 	player.SetSpriteSpeed(20);
 	player.SetAnimationActive(true);
+
+	score = 0;
+
+	srand((int)time(NULL));
+
+	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
+	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
+	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
 }
 
 PickinSticks::~PickinSticks() {
@@ -47,7 +58,28 @@ void PickinSticks::Update() {
 
 	//update all actors
 	player.Update(Delta::GetDelta());
-	stick.Update(Delta::GetDelta());
+
+	/* The following code should not be typed by anyone.
+	 * If you find yourself with the urge to program like this, please
+	 * insert the nearest available boot into your rear end
+	 * (application of force is recommended).
+	*/
+
+	//collision check
+	if (CheckCollision(
+		player.GetWorldBBox(),
+		//world BBox of the stick
+		stick.GetBBox()->Tweak(
+			stick.GetPosition()->x,
+			stick.GetPosition()->y,
+			stick.GetImage()->GetClipW(),
+			stick.GetImage()->GetClipH())
+		)
+	) {
+		//score
+		stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
+		cout << "Score: " << (++score) << endl;
+	}
 }
 
 void PickinSticks::Render(SDL_Surface* const screen) {
@@ -59,7 +91,7 @@ void PickinSticks::Render(SDL_Surface* const screen) {
 	}
 
 	player.DrawTo(screen);
-	stick.DrawTo(screen);
+	stick.GetImage()->DrawTo(screen, stick.GetPosition()->x, stick.GetPosition()->y);
 }
 
 //-------------------------

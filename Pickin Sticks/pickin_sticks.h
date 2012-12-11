@@ -1,6 +1,6 @@
 /* File Name: pickin_sticks.h
  * Author: Kayne Ruse
- * Date (dd/mm/yyyy): 31/10/2012
+ * Date (dd/mm/yyyy): ...
  * Copyright: ...
  * Description: ...
 */
@@ -10,6 +10,7 @@
 #include "scene.h"
 
 #include "actor.h"
+#include "stick.h"
 
 #include "image.h"
 
@@ -35,9 +36,11 @@ protected:
 
 	/* Members */
 	Actor player;
-	Actor stick;
+	Stick stick;
 
 	Image grass;
+
+	int score;
 };
 
 #endif
