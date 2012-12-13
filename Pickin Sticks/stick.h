@@ -1,9 +1,9 @@
 #ifndef KR_STICK_H_
 #define KR_STICK_H_
 
-#include "image.h"
-#include "bbox.h"
-#include "vector2.h"
+#include "Codebase/image.h"
+#include "Codebase/bbox.h"
+#include "Codebase/vector2.h"
 
 class Stick {
 public:

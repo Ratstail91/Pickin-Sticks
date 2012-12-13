@@ -3,10 +3,10 @@
 
 #include "SDL.h"
 
-#include "image.h"
-#include "animator.h"
-#include "bbox.h"
-#include "vector2.h"
+#include "Codebase/image.h"
+#include "Codebase/animator.h"
+#include "Codebase/bbox.h"
+#include "Codebase/vector2.h"
 
 class Actor {
 public:

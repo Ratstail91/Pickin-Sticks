@@ -12,7 +12,7 @@
 #include "actor.h"
 #include "stick.h"
 
-#include "image.h"
+#include "Codebase/image.h"
 
 class PickinSticks : public Scene {
 public:

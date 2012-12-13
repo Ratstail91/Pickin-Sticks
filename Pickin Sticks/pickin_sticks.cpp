@@ -6,7 +6,7 @@
 */
 #include "pickin_sticks.h"
 
-#include "delta.h"
+#include "Codebase/delta.h"
 
 #include <iostream>
 #include <stdlib.h>
