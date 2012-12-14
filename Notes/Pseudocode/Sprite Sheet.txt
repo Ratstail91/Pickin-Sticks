@@ -1,0 +1,7 @@
+Sprite Sheet, from Image:
+	has a frame count
+	has a frame index
+	has a frame delay (interval, 0 means don't animate)
+
+	disallow clip manipulation
+	disallow Image::LoadSurface() & Image::SetSurface(), replace with custom versions w/ parameters

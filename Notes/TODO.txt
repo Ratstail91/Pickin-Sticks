@@ -1,12 +1,1 @@
--	Add frame interval parameter to Actor::Update()?
-		This could give different speeds for different actors, and would remove hardcoding
-		what does this mean? I've forgotton, probably not important then.
--	Decide if I should use "frames per second" or "millisecond intervals" for sprite animations
-		it's fine how it is for now
--	Should I set the frame index inside Actor::Update()?
-		no, it's fine in the draw funcion
-
--	Should "Sprite" be an independant module from actor?
-		It could include the image & animation class; essentially a wrapper
-		no, since the "sprite" and the bounding box are to tightly connected, abstracting this away
-		 would only cause problems.
+*	Make some of Image's member functions virtual.
