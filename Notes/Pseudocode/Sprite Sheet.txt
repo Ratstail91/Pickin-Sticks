@@ -2,6 +2,11 @@ Sprite Sheet, from Image:
 	has a frame count
 	has a frame index
 	has a frame delay (interval, 0 means don't animate)
+	has an active value
 
 	disallow clip manipulation
 	disallow Image::LoadSurface() & Image::SetSurface(), replace with custom versions w/ parameters
+
+	Explicit width & height when loading/setting
+
+Animator has no concept of sprite sheets, it's purely a number crunching class.
