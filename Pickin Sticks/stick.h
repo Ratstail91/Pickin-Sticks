@@ -7,19 +7,31 @@
 
 class Stick {
 public:
+	/* Public access members */
 	Stick();
 	~Stick();
 
-	Image* GetImage();
-	BBox* GetBBox();
-	Vector2* GetPosition();
+	/* Sprite management */
+	void LoadSprite(const char* fname);
+	void UnloadSprite();
 
-	void RandomizePosition(int w, int h);
+	void DrawTo(SDL_Surface* dest, Sint16 camX = 0, Sint16 camY = 0);
+
+	/* Bonding box management */
+	BBox GetWorldBBox();
+
+	/* Position management */
+	Vector2 SetPosition(Vector2 v);
+	Vector2 SetPosition(double x, double y);
+	double SetX(double x);
+	double SetY(double y);
+
+	void RandomizePosition(int screenW, int screenH);
 
 private:
 	Image image;
 	BBox bbox;
-	Vector2 position; //I should have just ripped this from Ogre3D
+	Vector2 position;
 };
 
 #endif

@@ -23,7 +23,7 @@ using namespace std;
 PickinSticks::PickinSticks() {
 	grass.LoadSurface("grass.bmp");
 	player.LoadSprite("elliot2.bmp", 32, 48);
-	stick.GetImage()->LoadSurface("stick.bmp");
+	stick.LoadSprite("stick.bmp");
 
 	player.SetSpriteSpeed(20);
 	player.SetAnimationActive(true);
@@ -59,23 +59,8 @@ void PickinSticks::Update() {
 	//update all actors
 	player.Update(Delta::GetDelta());
 
-	/* The following code should not be typed by anyone.
-	 * If you find yourself with the urge to program like this, please
-	 * insert the nearest available boot into your rear end
-	 * (application of force is recommended).
-	*/
-
 	//collision check
-	if (CheckCollision(
-		player.GetWorldBBox(),
-		//world BBox of the stick
-		stick.GetBBox()->Tweak(
-			stick.GetPosition()->x,
-			stick.GetPosition()->y,
-			stick.GetImage()->GetClipW(),
-			stick.GetImage()->GetClipH())
-		)
-	) {
+	if (CheckCollision(player.GetWorldBBox(),stick.GetWorldBBox())) {
 		//score
 		stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
 		cout << "Score: " << (++score) << endl;
@@ -91,7 +76,7 @@ void PickinSticks::Render(SDL_Surface* const screen) {
 	}
 
 	player.DrawTo(screen);
-	stick.GetImage()->DrawTo(screen, stick.GetPosition()->x, stick.GetPosition()->y);
+	stick.DrawTo(screen);
 }
 
 //-------------------------
