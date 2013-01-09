@@ -9,9 +9,6 @@
 #include "Codebase/delta.h"
 
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
-
 using namespace std;
 
 #define CHAR_SPEED 0.14
@@ -30,10 +27,6 @@ PickinSticks::PickinSticks() {
 
 	score = 0;
 
-	srand((int)time(NULL));
-
-	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
-	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
 	stick.RandomizePosition(GetScreen()->w, GetScreen()->h);
 }
 

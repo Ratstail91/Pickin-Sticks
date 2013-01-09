@@ -28,6 +28,8 @@
 #include "scene_manager.h"
 
 #include <exception>
+#include <stdlib.h>
+#include <time.h>
 
 //-------------------------
 //Scene headers
@@ -53,6 +55,10 @@ void SceneManager::Init() {
 		throw(std::exception("Failed to initialize SDL"));
 
 	Scene::SetScreen(800, 600);
+
+	//call rand() 3 times to shake things up
+	srand((unsigned int)time(NULL));
+	rand(); rand(); rand();
 }
 
 void SceneManager::Proc() {

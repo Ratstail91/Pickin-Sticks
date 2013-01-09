@@ -1,1 +1,2 @@
-*	Make some of Image's member functions virtual.
+*	Rename "Actor" to "Player"
+*	finish SpriteSheet
